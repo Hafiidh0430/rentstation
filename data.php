@@ -18,28 +18,28 @@ $ps_data = [
         'id' => 1,
         'nama' => 'PlayStation 3',
         'deskripsi' => 'Era HD dimulai di sini. Grafis memukau dengan dukungan Blu-ray.',
-        'harga' => 12000,
+        'harga' => 5000,
         'spek' => 'Cell Broadband Engine, 256MB XDR, HDMI Out',
         'foto' => ['ps3_1', 'ps3_2', 'ps3_3'],
-        'jumlah_meja' => 3
+        'jumlah_meja' => 12
     ],
     2 => [
         'id' => 2,
         'nama' => 'PlayStation 4 Pro',
         'deskripsi' => 'Performa 4K yang tangguh untuk game AAA modern.',
-        'harga' => 18000,
+        'harga' => 7000,
         'spek' => '8-core AMD Jaguar, 8GB GDDR5, 4.2 TFLOPS',
         'foto' => ['ps4_1', 'ps4_2', 'ps4_3'],
-        'jumlah_meja' => 2
+        'jumlah_meja' => 10
     ],
     3 => [
         'id' => 3,
         'nama' => 'PlayStation 5',
         'deskripsi' => 'Generasi terbaru dengan SSD super cepat dan DualSense Haptic Feedback.',
-        'harga' => 25000,
+        'harga' => 10000,
         'spek' => 'Custom Zen 2, Ray Tracing, 4K 120Hz, Ultra-High Speed SSD',
         'foto' => ['ps5_1', 'ps5_2', 'ps5_3'],
-        'jumlah_meja' => 4
+        'jumlah_meja' => 8
     ],
 ];
 

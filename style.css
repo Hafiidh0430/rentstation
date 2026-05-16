@@ -1,3 +1,7 @@
+html {
+  scroll-behavior: smooth;
+}
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -9,7 +13,9 @@ body {
   font-family: "Inter", sans-serif;
 }
 
-.nav {
+/* Navigation */
+.nav,
+footer .content .bottom .copyright {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -40,8 +46,8 @@ body {
   }
 }
 
+/* Container Layout */
 .container {
-  /* max-width: 1200px; */
   margin: 0 auto;
 }
 header {
@@ -54,10 +60,11 @@ header .nav {
   padding: 1rem 4rem;
 }
 
+/* Hero Section */
 .hero {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 3rem;
+  gap: 2rem;
   min-height: 37rem;
   padding: 3rem 4rem;
 }
@@ -96,15 +103,18 @@ header .nav {
 }
 .hero h1,
 .list-ps .text h1,
-footer .header h1 {
-  font-size: 3.5rem;
+footer .header h1,
+.meja-content h1 {
+  font-size: 3rem;
   color: #252525;
   letter-spacing: -4%;
   line-height: 1.1;
   font-weight: normal;
 }
 .hero p,
-.list-ps .text p {
+.list-ps .text p,
+.content-payment p,
+.content-payment form {
   font-size: 1.1rem;
   color: #727272;
   letter-spacing: -3%;
@@ -135,6 +145,12 @@ footer .header h1 {
   align-items: center;
   gap: 0.5rem;
 }
+.btn-primary:disabled {
+  background-color: #252525;
+  color: #727272;
+  cursor: not-allowed;
+  opacity: 0.7;
+}
 .btn-secondary {
   background-color: transparent;
   color: #252525;
@@ -158,6 +174,7 @@ footer .header h1 {
   /* border: 2px solid #f1f1f1; */
 }
 
+/* PS Category List */
 .list-ps {
   padding: 4rem;
   background-color: #121212;
@@ -166,7 +183,7 @@ footer .header h1 {
   display: flex;
   justify-content: space-between;
   align-items: end;
-  margin-bottom: 3rem;
+  margin-bottom: 2rem;
 }
 .list-ps .text p {
   text-align: right;
@@ -209,12 +226,14 @@ footer .header h1 {
   font-weight: bold;
   font-size: 1.2rem;
 }
+
+/* Footer */
 footer {
   display: flex;
   flex-direction: column;
   justify-content: center;
   padding: 4rem;
-  gap: 3rem;
+  gap: 2rem;
 }
 footer .header {
   text-align: center;
@@ -245,11 +264,16 @@ footer .content .img-logo {
   height: auto;
 }
 
+/* Meja PS */
+.meja-content {
+  padding: 4rem;
+  background-color: #fafafa;
+}
 .meja-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(6.2rem, 1fr));
-  gap: 1.25rem;
-  margin: 1.25rem 0;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 1.5rem;
+  margin: 2rem 0;
 }
 .meja-item {
   position: relative;
@@ -258,18 +282,21 @@ footer .content .img-logo {
   display: none;
 }
 .meja-box {
-  padding: 1rem;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
   text-align: center;
-  /* border-radius: ; */
   cursor: pointer;
-  border: 2px solid transparent;
-  background: #222;
+  background: #fff;
   transition: 0.2s;
+  width: 100%;
+  height: 18rem;
+  aspect-ratio: 1/1;
 }
 .meja-box.available {
-  background: #064e3b;
+  background: #0f5132;
   color: #22c55e;
-  border-color: #065f46;
 }
 .meja-box.booked {
   background: #450a0a;
@@ -278,23 +305,199 @@ footer .content .img-logo {
   opacity: 0.7;
 }
 .meja-item input:checked + .meja-box {
-  border-color: #4cc9f0;
-  box-shadow: 0 0 10px #4cc9f0;
+  background: #22c55e;
+  border: 2px solid#1aa74e;
+  box-shadow: 0 0 12px rgba(34, 197, 94, 0.6);
+  color: #fff;
+}
+.meja-content form .buttons {
+  display: flex;
+  justify-content: space-between;
+}
+.ps-detail {
+  padding: 4rem;
+  background-color: #121212;
+  color: #fff;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+}
+.ps-detail h1 {
+  font-size: 3.5rem;
+  color: #fff;
+  letter-spacing: -4%;
+  line-height: 1.1;
+  font-weight: normal;
+}
+.ps-detail .ps-gallery .gallery-photo {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+.ps-detail .content {
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: column;
+}
+.ps-detail .ps-info-detail {
+  position: sticky;
+  top: 0;
 }
 
-.form-group {
-  margin-bottom: 1rem;
+/* 3 Steps Form */
+.content-payment {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  padding-bottom: 4rem;
 }
-.form-group label {
-  display: block;
-  margin-bottom: 0.5rem;
-}
-.form-control {
+.content-payment .payment-image {
   width: 100%;
-  padding: 0.75rem;
-  background: #1a1a2e;
-  border: 1px solid #3f37c9;
-  color: white;
+  height: 100%;
+  aspect-ratio: 1/1;
+  object-fit: cover;
+}
+.content-payment form {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-content: center;
+  gap: 2rem;
+  padding: 4rem 4rem 4rem 2rem !important;
+  color: #252525;
+}
+.content-payment .form-content {
+  width: 100%;
+}
+.content-payment h1 {
+  font-size: 3rem;
+  color: #252525;
+  letter-spacing: -4%;
+  line-height: 1.1;
+  font-weight: normal;
+}
+.content-payment .text {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 2.5rem;
+  gap: 0.5rem;
+}
+.content-payment .form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  width: 100%;
+}
+.content-payment .buttons {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+.content-payment .forms {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  width: 100%;
+}
+.content-payment .form-group input,
+.content-payment .form-group select {
+  padding: 1rem;
+  background-color: #fff;
+  border: 1px solid #d1d5db;
+  /* border-radius: 4px; */
+}
+.content-payment .form-jam-main .meja-durasi .forms {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  margin: 1rem 0;
+}
+.content-payment .form-jam-main .meja-durasi .detail-meja .no-meja {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+.content-payment form input::placeholder {
+  font-size: 0.9rem;
+  color: #727272;
+  letter-spacing: -3%;
+}
+.content-payment .form-jam-main .meja-durasi .detail-meja {
+  margin-bottom: 1rem;
+  background-color: #fff;
+  padding: 1.5rem;
+  border: 1px solid #d1d5db;
+}
+.form-pembayaran .total-display {
+  display: flex;
+  flex-direction: column;
+}
+.form-pembayaran .price-display {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #fff;
+  border: 1px solid #d1d5db;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+.form-pembayaran .price-display svg {
+  width: 2.5rem;
+  height: 2.5rem;
+}
+.form-pembayaran .total-display #display-total {
+  font-size: 2rem;
+  font-weight: bold;
+}
+.form-pembayaran .forms {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+}
+.form-pembayaran label {
+  display: flex;
+  flex-direction: column;
+  font-size: 1.5rem;
+  gap: 0.5rem;
+  width: 100%;
+  border: 1px solid #d1d5db;
+  padding: 1rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+}
+.form-pembayaran label input[type="radio"] {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+  margin: 0;
+}
+.form-pembayaran label:has(input[type="radio"]:checked) {
+  border: 2px solid #252525;
+  background-color: #fff;
+  box-shadow: 0 0 0 2px rgba(148, 148, 148, 0.1);
+}
+.form-pembayaran label:hover {
+  border-color: #9ca3af;
+  background-color: #fff;
+}
+.form-pembayaran label svg {
+  width: 2rem;
+  height: 2rem;
+}
+/* Sembunyikan semua form awalnya */
+.form-jam-main,
+.form-data-diri,
+.form-pembayaran {
+  display: none;
+}
+
+/* Tampilkan form yang aktif (akan diatur oleh JS) */
+.form-jam-main.active,
+.form-data-diri.active,
+.form-pembayaran.active {
+  display: block;
 }
 
 .receipt {

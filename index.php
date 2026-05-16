@@ -17,7 +17,7 @@ require_once 'data.php';
                 <img class='img-logo' src="assets/Logo.jpg" width="56" height="56" alt="RentStation">
             </a>
             <div class="menu">
-                <a href="index.php">Kategori PS</a>
+                <a href="#kategori_ps">Kategori PS</a>
                 <a href="history.php">Riwayat Pesanan</a>
             </div>
         </div>
@@ -39,7 +39,7 @@ require_once 'data.php';
                     <p>Booking PlayStation secara online. Cek ketersediaan slot secara <br> real-time dan tentuin jadwal main tanpa harus datang dan nunggu.</p>
                 </div>
                 <div class="buttons">
-                    <a href="" class="btn btn-primary">Booking Sekarang
+                    <a href="#kategori_ps" class="btn btn-primary">Booking Sekarang
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-up-right-icon lucide-arrow-up-right">
                             <path d="M7 7h10v10" />
                             <path d="M7 17 17 7" />
@@ -53,7 +53,7 @@ require_once 'data.php';
             </div>
         </section>
 
-        <section class="list-ps">
+        <section class="list-ps" id="kategori_ps">
             <div class="text">
                 <h1>Daftar PS Tersedia dan <br> Langsung Booking</h1>
                 <p>Lihat daftar PlayStation beserta harga sewa/jam, <br> lalu pilih yang paling sesuai dengan kebutuhan kamu!</p>
@@ -84,7 +84,7 @@ require_once 'data.php';
         <div class="header">
             <h1>Siap Main di RentStation <br> Tanpa Ngantri?</h1>
             <div class="buttons">
-                <a href="" class="btn btn-primary">Booking Sekarang
+                <a href="#kategori_ps" class="btn btn-primary">Booking Sekarang
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-up-right-icon lucide-arrow-up-right">
                         <path d="M7 7h10v10" />
                         <path d="M7 17 17 7" />
