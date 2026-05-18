@@ -84,6 +84,7 @@ $selected_meja_ids = $_POST['selected_meja'];
                             <div class="form-group">
                                 <label>Email</label>
                                 <input placeholder="Masukkan Email" type="email" name="email" class="form-control" required>
+                                <span style="font-size: 1rem; color: #ea2222">Pastikan format email mengandung '@'</span>
                             </div>
                             <div class="form-group">
                                 <label>Nomor WA</label>
