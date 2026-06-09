@@ -15,7 +15,7 @@ $selected_meja_ids = $_POST['selected_meja'];
 <head>
     <meta charset="UTF-8">
     <title>Pembayaran - RentaPS</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
@@ -149,32 +149,8 @@ $selected_meja_ids = $_POST['selected_meja'];
                 <input type="hidden" id="harga_per_jam" value="<?= $ps['harga'] ?>">
             </form>
         </div>
-        <footer>
-            <div class="header">
-                <h1>Siap Main di RentStation <br> Tanpa Ngantri?</h1>
-                <div class="buttons">
-                    <a href="" class="btn btn-primary">Booking Sekarang
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-up-right-icon lucide-arrow-up-right">
-                            <path d="M7 7h10v10" />
-                            <path d="M7 17 17 7" />
-                        </svg>
-                    </a>
-                    <a href="" class="btn btn-secondary">Hubungi Kami</a>
-                </div>
-            </div>
-            <div class="content">
-                <img class='img-logo' src="assets/RentStation.png" alt="RentStation">
-                <div class="bottom">
-                    <span class="copyright">© 2026 RentStation. All rights reserved.</span>
-                    <div class="menu">
-                        <a href="index.php">Kategori PS</a>
-                        <a href="history.php">Riwayat Pesanan</a>
-                    </div>
-                </div>
-            </div>
-        </footer>
     </div>
-    <script src="script.js"></script>
+    <script src="js/script.js"></script>
 </body>
 
 </html>

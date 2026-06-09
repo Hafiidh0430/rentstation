@@ -7,7 +7,7 @@ require_once 'data.php';
 <head>
     <meta charset="UTF-8">
     <title>RentStation - Sewa PlayStation</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>

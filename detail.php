@@ -14,7 +14,7 @@ $meja_list = getMejaByPs($id);
 <head>
     <meta charset="UTF-8">
     <title>Detail <?= $ps['nama'] ?> - RentaPS</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
@@ -24,7 +24,7 @@ $meja_list = getMejaByPs($id);
                 <img class='img-logo' src="assets/Logo.jpg" width="56" height="56" alt="RentStation">
             </a>
             <div class="menu">
-                <a href="index.php">Kategori PS</a>
+                <a href="index.php#kategori_ps">Kategori PS</a>
                 <a href="history.php">Riwayat Pesanan</a>
             </div>
         </div>
@@ -102,7 +102,7 @@ $meja_list = getMejaByPs($id);
         </footer>
     </div>
 
-    <script src="script.js"></script>
+    <script src="js/script.js"></script>
 </body>
 
 </html>

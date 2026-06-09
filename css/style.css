@@ -104,7 +104,8 @@ header .nav {
 .hero h1,
 .list-ps .text h1,
 footer .header h1,
-.meja-content h1 {
+.meja-content h1,
+.history-content h1 {
   font-size: 3rem;
   color: #252525;
   letter-spacing: -4%;
@@ -114,7 +115,8 @@ footer .header h1,
 .hero p,
 .list-ps .text p,
 .content-payment p,
-.content-payment form {
+.content-payment form,
+.history-content .history-detail .text p {
   font-size: 1.1rem;
   color: #727272;
   letter-spacing: -3%;
@@ -265,7 +267,8 @@ footer .content .img-logo {
 }
 
 /* Meja PS */
-.meja-content {
+.meja-content,
+.history-content {
   padding: 4rem;
   background-color: #fafafa;
 }
@@ -350,7 +353,6 @@ footer .content .img-logo {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 3rem;
-  padding-bottom: 4rem;
 }
 .content-payment .payment-image {
   width: 100%;
@@ -486,20 +488,100 @@ footer .content .img-logo {
   width: 2rem;
   height: 2rem;
 }
-/* Sembunyikan semua form awalnya */
 .form-jam-main,
 .form-data-diri,
 .form-pembayaran {
   display: none;
 }
-
-/* Tampilkan form yang aktif (akan diatur oleh JS) */
 .form-jam-main.active,
 .form-data-diri.active,
 .form-pembayaran.active {
   display: block;
 }
 
+/* Riwayat Pesanan */
+.history-content .history-detail {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100dvh;
+  width: 100%;
+  padding: 4rem;
+}
+.history-content {
+  padding: 4rem;
+}
+.history-content .history-detail .text h1 {
+  font-size: 2.5rem;
+  color: #252525;
+  letter-spacing: -4%;
+  line-height: 1.1;
+  font-weight: normal;
+}
+.history-content .history-detail .text {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+.history-content .header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+.history-content .history-list {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+.history-content .history-list .history-card {
+  border: 1px solid #252525;
+  padding: 1.5rem;
+}
+.history-content .history-list .history-card .ps-name,
+.history-content .history-list .history-card .history-price {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  align-items: start;
+  margin-bottom: 1rem;
+}
+.history-content .history-list .history-card .ps-name h2,
+.history-content .history-list .history-card .history-price .price {
+  font-size: 2rem;
+  color: #252525;
+  letter-spacing: -4%;
+  line-height: 1.1;
+  font-weight: normal;
+}
+.history-content .history-list .history-meja .booking-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+  font-size: 1.2rem;
+}
+.history-content .history-list .history-meja .meja-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+.history-content .history-list .history-meja .meja-list .meja-item {
+  background-color: #f1f1f1;
+  padding: 0.75rem 1rem;
+  border-radius: 4px;
+  font-size: 1.1rem;
+}
+.history-content .history-list .history-card .history-date {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 1.2rem;
+  margin-top: 2rem;
+}
 .receipt {
   background: #fff;
   color: #000;

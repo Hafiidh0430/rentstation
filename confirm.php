@@ -6,7 +6,6 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     exit;
 }
 
-// Ambil Data
 $booking_id = "RPS-" . date('Ymd') . "-" . strtoupper(substr(uniqid(), -4));
 $nama = $_POST['nama'];
 $ps = $ps_data[$_POST['ps_id']];
@@ -35,7 +34,6 @@ foreach ($meja_ids as $index => $m_id) {
         'subtotal' => $subtotal
     ];
 
-    // Update status meja di session
     foreach ($_SESSION['meja_status'] as &$m) {
         if ($m['id_meja'] === $m_id) {
             $m['status'] = 'booked';
@@ -43,7 +41,6 @@ foreach ($meja_ids as $index => $m_id) {
     }
 }
 
-// SIMPAN KE HISTORY SESSION
 $history_entry = [
     'booking_id' => $booking_id,
     'tanggal' => date('d/m/Y H:i'),
@@ -54,8 +51,9 @@ $history_entry = [
     'detail_meja' => $detail_booking
 ];
 
-// Masukkan ke urutan paling atas (array_unshift) agar riwayat terbaru muncul pertama
 array_unshift($_SESSION['booking_history'], $history_entry);
+
+ header('Location: history.php');
 ?>
 <!DOCTYPE html>
 <html lang="id">
@@ -63,7 +61,7 @@ array_unshift($_SESSION['booking_history'], $history_entry);
 <head>
     <meta charset="UTF-8">
     <title>Konfirmasi Pesanan - RentaPS</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
