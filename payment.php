@@ -5,9 +5,14 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST' || empty($_POST['selected_meja'])) {
     exit;
 }
 
+if (!isset($_SESSION['booking_slots'])) {
+    $_SESSION['booking_slots'] = [];
+}
+
 $ps_id = $_POST['ps_id'];
 $ps = $ps_data[$ps_id];
 $selected_meja_ids = $_POST['selected_meja'];
+$jam_operasional = range(10, 21);
 ?>
 <!DOCTYPE html>
 <html lang="id">
@@ -36,29 +41,37 @@ $selected_meja_ids = $_POST['selected_meja'];
             <img src="https://images.unsplash.com/photo-1609354786576-5140d7e578c2?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="payment-image" alt="">
             <form action="confirm.php" method="POST">
                 <div class="form-content">
+
                     <!-- Pengaturan Durasi -->
                     <div class="form-jam-main">
                         <div class="text">
                             <h1>Atur Waktu <?= $ps['nama'] ?></h1>
                             <p>Pilih waktu mulai dan durasi untuk setiap meja yang Anda pilih.</p>
                         </div>
+
                         <?php foreach ($selected_meja_ids as $m_id):
                             $parts = explode('-', $m_id);
                             $no_meja = end($parts);
+                            $jam_blokir = $_SESSION['booking_slots'][$m_id] ?? [];
+                            $jam_blokir_str = implode(',', $jam_blokir); // "11,12" — tanpa JSON
                         ?>
-                            <div class="meja-durasi">
+                            <div class="meja-durasi" data-jam_blokir="<?= $jam_blokir_str ?>">
                                 <input type="hidden" name="meja_ids[]" value="<?= $m_id ?>">
                                 <div class="detail-meja">
                                     <span class="no-meja">Meja. <?= $no_meja ?></span>
                                     <div class="forms">
                                         <div class="form-group">
-                                            <label>Jam Mulai</label>
-                                            <input type="time" name="mulai[]" class="time-start" required value="<?= date('H:i') ?>">
-                                        </div>
-                                        <div class="form-group">
                                             <label>Durasi</label>
                                             <select name="durasi[]" class="durasi-select">
                                                 <?php for ($i = 1; $i <= 8; $i++) echo "<option value='$i'>$i Jam</option>"; ?>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Jam Mulai</label>
+                                            <select name="mulai[]" class="jam-select" required>
+                                                <?php foreach ($jam_operasional as $jam): ?>
+                                                    <option value="<?= $jam ?>"><?= str_pad($jam, 2, '0', STR_PAD_LEFT) ?>:00</option>
+                                                <?php endforeach; ?>
                                             </select>
                                         </div>
                                     </div>
@@ -104,7 +117,7 @@ $selected_meja_ids = $_POST['selected_meja'];
                                 <span>Total Harga:</span>
                                 <span id="display-total">Rp 0</span>
                             </div>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-banknote-icon lucide-banknote">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-banknote">
                                 <rect width="20" height="12" x="2" y="6" rx="2" />
                                 <circle cx="12" cy="12" r="2" />
                                 <path d="M6 12h.01M18 12h.01" />
@@ -113,7 +126,7 @@ $selected_meja_ids = $_POST['selected_meja'];
                         <div class="forms">
                             <label>
                                 <input type="radio" name="metode" value="QRIS" checked>
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-qr-code-icon lucide-qr-code">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-qr-code">
                                     <rect width="5" height="5" x="3" y="3" rx="1" />
                                     <rect width="5" height="5" x="16" y="3" rx="1" />
                                     <rect width="5" height="5" x="3" y="16" rx="1" />
@@ -131,7 +144,7 @@ $selected_meja_ids = $_POST['selected_meja'];
                             </label>
                             <label>
                                 <input type="radio" name="metode" value="CASH">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-house-icon lucide-house">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-house">
                                     <path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8" />
                                     <path d="M3 10a2 2 0 0 1 .709-1.528l7-6a2 2 0 0 1 2.582 0l7 6A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
                                 </svg>
@@ -150,7 +163,9 @@ $selected_meja_ids = $_POST['selected_meja'];
             </form>
         </div>
     </div>
+
     <script src="js/script.js"></script>
+    <script src="js/form_steps.js"></script>
 </body>
 
 </html>

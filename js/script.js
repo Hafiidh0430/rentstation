@@ -1,132 +1,87 @@
-document.addEventListener("DOMContentLoaded", function () {
-  const mejaChecks = document.querySelectorAll(".meja-check");
-  const btnLanjut = document.getElementById("btnLanjut");
+document.addEventListener("DOMContentLoaded", () => {
+  const meja_checkbox = document.querySelectorAll(".meja-check");
+  const tombol_lanjut = document.getElementById("btnLanjut");
+  const jumlah_terpilih = document.getElementById("jumlah-terpilih");
 
-  if (mejaChecks.length > 0) {
-    mejaChecks.forEach((check) => {
-      check.addEventListener("change", () => {
-        const checkedAny = Array.from(mejaChecks).some((c) => c.checked);
-        btnLanjut.disabled = !checkedAny;
+  meja_checkbox.forEach((checkbox) => {
+    checkbox.addEventListener("change", () => {
+      const terpilih = [...meja_checkbox].filter(
+        (check) => check.checked && !check.disabled,
+      );
+      tombol_lanjut.disabled = terpilih.length === 0;
+      jumlah_terpilih.textContent = terpilih.length;
+    });
+  });
+
+  document.querySelectorAll(".meja-durasi").forEach((elemen_meja) => {
+    const jam_yang_diblokir = elemen_meja.dataset.jam_blokir
+      ? elemen_meja.dataset.jam_blokir.split(",").map(Number)
+      : [];
+
+    const pilihan_durasi = elemen_meja.querySelector(".durasi-select");
+    const pilihan_jam = elemen_meja.querySelector(".jam-select");
+    const label_selesai = elemen_meja.querySelector(".time-end");
+
+    const updateWaktuSelesai = () => {
+      const jam_selesai = parseInt(pilihan_jam.value) + parseInt(pilihan_durasi.value);
+      label_selesai.textContent = `${String(jam_selesai).padStart(2, "0")}:00`;
+    };
+
+    const updateOpsiJam = () => {
+      const durasi = parseInt(pilihan_durasi.value);
+
+      pilihan_jam.querySelectorAll("option").forEach((opsi) => {
+        const jam_mulai = parseInt(opsi.value);
+        const jam_selesai = jam_mulai + durasi;
+        const melebihi_operasional = jam_selesai > 22;
+
+        const bentrok =
+          !melebihi_operasional &&
+          jam_yang_diblokir.some(
+            (jam_blocked) =>
+              jam_blocked >= jam_mulai && jam_blocked < jam_selesai,
+          );
+
+        opsi.disabled = melebihi_operasional || bentrok;
+        opsi.innerHTML = melebihi_operasional
+          ? `${opsi.value}:00 - Melebihi jam operasional`
+          : bentrok
+            ? `${opsi.value}:00 - Sudah dibooking`
+            : `${opsi.value}:00`;
       });
-    });
-  }
 
-  const durasiSelects = document.querySelectorAll(".durasi-select");
-  const timeStarts = document.querySelectorAll(".time-start");
-  const hargaPerJam = document.getElementById("harga_per_jam")?.value || 0;
-  const displayTotal = document.getElementById("display-total");
+      const opsi_terpilih = pilihan_jam[pilihan_jam.selectedIndex];
 
-  function hitungDurasi() {
-    let total = 0;
-
-    durasiSelects.forEach((select, index) => {
-      const durasi = parseInt(select.value);
-      const startTime = timeStarts[index].value;
-
-      total += durasi * hargaPerJam;
-
-      if (startTime) {
-        const [hours, minutes] = startTime.split(":");
-        let endHours = parseInt(hours) + durasi;
-        if (endHours >= 24) endHours -= 24;
-        const formattedEnd =
-          (endHours < 10 ? "0" : "") + endHours + ":" + minutes;
-        document.querySelectorAll(".time-end")[index].innerText = formattedEnd;
+      if (opsi_terpilih?.disabled) {
+        const jam_tersedia = [...pilihan_jam].find(
+          (opsi) => !opsi.disabled,
+        );
+        if (jam_tersedia) pilihan_jam.value = jam_tersedia.value;
       }
-    });
+      updateWaktuSelesai();
+    };
 
-    if (displayTotal) {
-      displayTotal.innerText = "Rp " + total.toLocaleString("id-ID");
-    }
-  }
+    pilihan_durasi.addEventListener("change", updateOpsiJam);
+    pilihan_jam.addEventListener("change", updateWaktuSelesai);
+    updateOpsiJam();
+  });
 
-  if (durasiSelects.length > 0) {
-    durasiSelects.forEach((s) =>
-      s.addEventListener("change", hitungDurasi),
+  const harga_per_jam = parseInt(
+    document.getElementById("harga_per_jam")?.value || 0,
+  );
+  const label_total = document.getElementById("display-total");
+
+  const updateTotalHarga = () => {
+    const total = [...document.querySelectorAll(".durasi-select")].reduce(
+      (akumulasi, select) => akumulasi + parseInt(select.value) * harga_per_jam,
+      0,
     );
-    timeStarts.forEach((t) =>
-      t.addEventListener("change", hitungDurasi),
-    );
-    hitungDurasi(); 
-  }
-
-  const step1 = document.querySelector(".form-jam-main");
-  const step2 = document.querySelector(".form-data-diri");
-  const step3 = document.querySelector(".form-pembayaran");
-  const prevBtn = document.querySelector(".buttons .previous");
-  const nextBtn = document.querySelector(".buttons .next");
-  const form = document.querySelector("form");
-
-  let currentStep = 1;
-
-  const nama = document.querySelector('input[name="nama"]');
-  const email = document.querySelector('input[name="email"]');
-  const phone = document.querySelector('input[name="phone"]');
-
-  function isStep2Valid() {
-    if (!nama.value.trim()) return false;
-    if (!email.value.includes("@") || !email.value.includes(".")) return false;
-    let noHp = phone.value.replace(/\D/g, "");
-    if (noHp.length < 10 || noHp.length > 13) return false;
-    return true;
-  }
-
-  function updateButtons() {
-    step1.style.display = currentStep === 1 ? "block" : "none";
-    step2.style.display = currentStep === 2 ? "block" : "none";
-    step3.style.display = currentStep === 3 ? "block" : "none";
-
-    prevBtn.style.visibility = currentStep === 1 ? "hidden" : "visible";
-
-    if (currentStep === 2) {
-      nextBtn.disabled = !isStep2Valid();
-      nextBtn.style.opacity = nextBtn.disabled ? "0.5" : "1";
-    } else {
-      nextBtn.disabled = false;
-      nextBtn.style.opacity = "1";
-    }
-
-    if (currentStep === 3) {
-      nextBtn.textContent = "Bayar Sekarang";
-      nextBtn.type = "button";
-    } else {
-      nextBtn.textContent = "Selanjutnya";
-      nextBtn.type = "button";
-    }
-  }
-
-  if (nama && email && phone) {
-    nama.oninput = () => currentStep === 2 && updateButtons();
-    email.oninput = () => currentStep === 2 && updateButtons();
-    phone.oninput = () => currentStep === 2 && updateButtons();
-  }
-
-  nextBtn.onclick = () => {
-    if (currentStep === 2 && !isStep2Valid()) {
-      alert("Isi data diri dengan benar!");
-      return;
-    }
-
-    if (currentStep === 3) {
-      form.submit();
-      return;
-    }
-
-    if (currentStep < 3) currentStep++;
-    updateButtons();
+    if (label_total)
+      label_total.innerText = "Rp " + total.toLocaleString("id-ID");
   };
 
-  prevBtn.onclick = () => {
-    if (currentStep > 1) currentStep--;
-    updateButtons();
-  };
-
-  form.onsubmit = (e) => {
-    e.preventDefault();
-    if (currentStep === 3) {
-      nextBtn.onclick();
-    }
-  };
-
-  updateButtons();
+  document
+    .querySelectorAll(".durasi-select")
+    .forEach((select) => select.addEventListener("change", updateTotalHarga));
+  updateTotalHarga();
 });

@@ -61,7 +61,7 @@ require_once 'data.php';
             <div class="ps-grid">
                 <?php foreach ($ps_data as $ps): ?>
                     <div class="ps-card">
-                        <img src="https://picsum.photos/seed/ps<?= $ps['id'] ?>/400/300" alt="<?= $ps['nama'] ?>">
+                        <img src="assets/playstation_<?= explode(' ', $ps['nama'])[1] ?>.jpeg" alt="<?= $ps['nama'] ?>">
                         <div class="ps-info">
                             <div class="text">
                                 <h3><?= htmlspecialchars($ps['nama']) ?></h3>

@@ -37,15 +37,6 @@ footer .content .bottom .copyright {
   text-decoration: underline;
 }
 
-@media (max-width: 600px) {
-  .container {
-    padding: 0.9rem;
-  }
-  h1 {
-    font-size: 1.5rem;
-  }
-}
-
 /* Container Layout */
 .container {
   margin: 0 auto;
@@ -116,7 +107,8 @@ footer .header h1,
 .list-ps .text p,
 .content-payment p,
 .content-payment form,
-.history-content .history-detail .text p {
+.history-content .history-detail .text p,
+.meja-content form .buttons .info p {
   font-size: 1.1rem;
   color: #727272;
   letter-spacing: -3%;
@@ -173,7 +165,6 @@ footer .header h1,
   background-size: cover;
   background-position: center;
   object-fit: cover;
-  /* border: 2px solid #f1f1f1; */
 }
 
 /* PS Category List */
@@ -272,14 +263,51 @@ footer .content .img-logo {
   padding: 4rem;
   background-color: #fafafa;
 }
+.meja-content .denah-container {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  justify-content: center;
+  margin-top: 2rem;
+  margin-bottom: 4rem;
+}
+.meja-content .denah-container .kamar-mandi-kasir {
+  display: grid;
+  grid-template-rows: 1fr 2fr 1fr;
+}
+.meja-content .denah-container .teras-pintu {
+  display: grid;
+  grid-template-rows: 2fr 1.5fr 2fr;
+}
+.meja-content .denah-container .kamar-mandi-kasir span,
+.meja-content .denah-container .teras-pintu span {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 3rem;
+  border: 2px solid #252525;
+}
+.meja-content .denah-container .kamar-mandi-kasir .kasir {
+  border-top: none;
+  border-bottom: none;
+}
+.meja-content .denah-container .teras-pintu .pintu {
+  border: none;
+}
+.meja-content .denah-container .meja-container {
+  width: 100%;
+}
 .meja-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: repeat(3, 1fr);
   gap: 1.5rem;
-  margin: 2rem 0;
-}
-.meja-item {
-  position: relative;
+  row-gap: 12rem;
+  padding: 2.5rem;
+  height: 100%;
+  border: 2px solid #252525;
+  border-left: none;
+  border-right: none;
 }
 .meja-item input {
   display: none;
@@ -293,9 +321,7 @@ footer .content .img-logo {
   cursor: pointer;
   background: #fff;
   transition: 0.2s;
-  width: 100%;
-  height: 18rem;
-  aspect-ratio: 1/1;
+  height: 100%;
 }
 .meja-box.available {
   background: #0f5132;
@@ -314,38 +340,40 @@ footer .content .img-logo {
   color: #fff;
 }
 .meja-content form .buttons {
+  display: grid;
+  grid-template-columns: 4fr 1fr;
+  gap: 6rem;
+}
+.meja-content form .buttons .info {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  background-color: #fff;
+  border: 1px solid #d1d5db;
+  padding: 2.5rem;
+}
+.meja-content form .buttons .info .header {
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
-.ps-detail {
-  padding: 4rem;
-  background-color: #121212;
-  color: #fff;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 2rem;
-}
-.ps-detail h1 {
-  font-size: 3.5rem;
-  color: #fff;
+.meja-content form .buttons .info .header .ps-price {
+  font-size: 2rem;
+  font-weight: bold;
   letter-spacing: -4%;
-  line-height: 1.1;
-  font-weight: normal;
+  margin-bottom: 1rem;
+  margin: 0;
 }
-.ps-detail .ps-gallery .gallery-photo {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  margin-top: 2rem;
+.meja-content form .buttons button {
+  height: fit-content;
+  width: 100%;
 }
-.ps-detail .content {
-  margin-top: 2rem;
-  display: flex;
-  flex-direction: column;
-}
-.ps-detail .ps-info-detail {
-  position: sticky;
-  top: 0;
+.meja-content form .buttons .booking h1 {
+  font-size: 1.5rem;
+  font-weight: bold;
+  letter-spacing: -4%;
+  margin-bottom: 1rem;
 }
 
 /* 3 Steps Form */
@@ -600,24 +628,4 @@ footer .content .img-logo {
   display: flex;
   justify-content: space-between;
   margin: 0.5rem 0;
-}
-
-@media print {
-  body * {
-    visibility: hidden;
-  }
-  .receipt,
-  .receipt * {
-    visibility: visible;
-  }
-  .receipt {
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-    border: none;
-  }
-  .no-print {
-    display: none;
-  }
 }

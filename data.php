@@ -1,12 +1,10 @@
 <?php
 session_start();
 
-// Inisialisasi History di Session
 if (!isset($_SESSION['booking_history'])) {
     $_SESSION['booking_history'] = [];
 }
 
-// Tambahkan fungsi untuk menghapus history (opsional)
 if (isset($_GET['clear_history'])) {
     $_SESSION['booking_history'] = [];
     header("Location: history.php");
@@ -19,27 +17,21 @@ $ps_data = [
         'nama' => 'PlayStation 3',
         'deskripsi' => 'Era HD dimulai di sini. Grafis memukau dengan dukungan Blu-ray.',
         'harga' => 5000,
-        'spek' => 'Cell Broadband Engine, 256MB XDR, HDMI Out',
-        'foto' => ['ps3_1', 'ps3_2', 'ps3_3'],
-        'jumlah_meja' => 12
+        'jumlah_meja' => 6
     ],
     2 => [
         'id' => 2,
-        'nama' => 'PlayStation 4 Pro',
+        'nama' => 'PlayStation 4',
         'deskripsi' => 'Performa 4K yang tangguh untuk game AAA modern.',
         'harga' => 7000,
-        'spek' => '8-core AMD Jaguar, 8GB GDDR5, 4.2 TFLOPS',
-        'foto' => ['ps4_1', 'ps4_2', 'ps4_3'],
-        'jumlah_meja' => 10
+        'jumlah_meja' => 6
     ],
     3 => [
         'id' => 3,
         'nama' => 'PlayStation 5',
         'deskripsi' => 'Generasi terbaru dengan SSD super cepat dan DualSense Haptic Feedback.',
         'harga' => 10000,
-        'spek' => 'Custom Zen 2, Ray Tracing, 4K 120Hz, Ultra-High Speed SSD',
-        'foto' => ['ps5_1', 'ps5_2', 'ps5_3'],
-        'jumlah_meja' => 8
+        'jumlah_meja' => 6
     ],
 ];
 
