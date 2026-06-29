@@ -108,7 +108,9 @@ footer .header h1,
 .content-payment p,
 .content-payment form,
 .history-content .history-detail .text p,
-.meja-content form .buttons .info p {
+.meja-content form .buttons .info p,
+.modal-container .modal .header p,
+.modal-konfirmasi-container .modal .header p {
   font-size: 1.1rem;
   color: #727272;
   letter-spacing: -3%;
@@ -302,7 +304,7 @@ footer .content .img-logo {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 1.5rem;
-  row-gap: 12rem;
+  row-gap: 10rem;
   padding: 2.5rem;
   height: 100%;
   border: 2px solid #252525;
@@ -488,7 +490,7 @@ footer .content .img-logo {
   display: flex;
   flex-direction: column;
   font-size: 1.5rem;
-  gap: 0.5rem;
+  gap: 1rem;
   width: 100%;
   border: 1px solid #d1d5db;
   padding: 1rem;
@@ -525,6 +527,139 @@ footer .content .img-logo {
 .form-data-diri.active,
 .form-pembayaran.active {
   display: block;
+}
+
+/* Modal Konfirmasi */
+.modal-container.active {
+  position: absolute;
+  width: 100%;
+  height: 100dvh;
+  background-color: #00000081;
+  top: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  visibility: visible;
+  opacity: 1;
+  transition:
+    opacity 0.3s ease,
+    visibility 0.3s ease;
+}
+.modal-container {
+  opacity: 0;
+  visibility: hidden;
+}
+.modal-container .modal,
+.modal-konfirmasi-container .modal {
+  background-color: #fff;
+  width: fit-content;
+  padding: 3rem;
+  display: flex;
+  gap: 2rem;
+  flex-direction: column;
+  align-items: center;
+}
+.modal-container .modal .img-qris-code {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.25rem;
+  font-size: 1.1rem;
+  color: #727272;
+  letter-spacing: -3%;
+  line-height: 1.4;
+}
+.modal-container .modal .img-qris-code b {
+  color: #252525;
+}
+.modal-container .line {
+  display: block;
+  border: 1px solid #f1f1f1;
+  width: 100%;
+}
+.modal-container .modal .header,
+.modal-konfirmasi-container .modal .header {
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+.modal-container .modal .header h1,
+.modal-konfirmasi-container .modal .header h1 {
+  font-size: 2rem;
+  letter-spacing: -4%;
+  font-weight: normal;
+}
+.modal-container .modal .data {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.modal-container .modal .buttons,
+.modal-konfirmasi-container .modal .buttons {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.modal-container .modal .buttons button,
+.modal-konfirmasi-container .modal .buttons button {
+  width: 100%;
+}
+.modal-container .modal .data .data-diri,
+.modal-container .modal .data .tipe-ps,
+.modal-container .modal .data .meja-durasi-modal,
+.modal-container .modal .data .metode-pembayaran,
+.modal-container .modal .data .total-bayar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+}
+.modal-container .modal .data .data-diri .nama-telp {
+  display: flex;
+  flex-direction: column;
+  align-items: end;
+}
+.modal-container .modal .data .total-bayar b {
+  display: inline-flex;
+  gap: 0.25rem;
+  align-items: center;
+}
+.modal-container .modal .data .total-bayar {
+  padding: 1rem;
+  background-color: #fafafa;
+  border: 1px solid #f1f1f1;
+}
+.modal-container .modal .data .meja-durasi-modal .meja {
+  padding: 0.5rem 1rem;
+  margin: 0;
+  background-color: #fafafa;
+  border: 1px solid #f1f1f1;
+}
+.modal-konfirmasi-container {
+  visibility: hidden;
+  opacity: 0;
+}
+.modal-konfirmasi-container.active {
+  display: none;
+  position: absolute;
+  width: 100%;
+  height: 100dvh;
+  background-color: #00000081;
+  top: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  visibility: visible;
+  opacity: 1;
+  transition:
+    opacity 0.3s ease,
+    visibility 0.3s ease;
 }
 
 /* Riwayat Pesanan */
@@ -609,23 +744,4 @@ footer .content .img-logo {
   align-items: center;
   font-size: 1.2rem;
   margin-top: 2rem;
-}
-.receipt {
-  background: #fff;
-  color: #000;
-  padding: 2rem;
-  max-width: 32rem;
-  margin: 0 auto;
-  font-family: "Courier New", Courier, monospace;
-  border: 2px dashed #000;
-}
-.receipt-header {
-  text-align: center;
-  border-bottom: 1px dashed #000;
-  padding-bottom: 0.75rem;
-}
-.receipt-line {
-  display: flex;
-  justify-content: space-between;
-  margin: 0.5rem 0;
 }

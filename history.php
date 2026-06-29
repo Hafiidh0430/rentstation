@@ -1,4 +1,9 @@
 <?php require_once 'data.php'; ?>
+<?php
+$booking_terbaru = $_SESSION['booking_history'][0] ?? null;
+$booking_success = $_SESSION['booking_success'] ?? false;
+unset($_SESSION['booking_success']);
+?>
 <!DOCTYPE html>
 <html lang="id">
 
@@ -7,12 +12,7 @@
     <title>Riwayat Pesanan - RentaPS</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
-    <?php
-    $booking_terbaru = $_SESSION['booking_history'][0] ?? null;
-    echo "<pre>";
-    print_r($booking_terbaru);
-    echo "</pre>";
-    ?>
+
 <body>
     <header>
         <div class="nav">
@@ -25,7 +25,6 @@
             </div>
         </div>
     </header>
-
     <section class="history-content">
         <?php if (!empty($_SESSION['booking_history'])): ?>
             <div class="header">
@@ -76,6 +75,23 @@
             </div>
         <?php endif; ?>
     </section>
+    <div class="modal-konfirmasi-container <?= $booking_success ? 'active' : '' ?>">
+        <div class="modal">
+            <div class="header">
+                <svg style="margin-bottom: 1rem; color: #22c55e;" xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-circle-check-icon lucide-circle-check">
+                    <circle cx="12" cy="12" r="10" />
+                    <path d="m9 12 2 2 4-4" />
+                </svg>
+                <h1>Booking Berhasil</h1>
+                <p>Silahkan download recipt, sebagai bukti pemesanan</p>
+            </div>
+            <div class="buttons">
+                <button id="btn-konfirmasi-kembali" class="btn btn-secondary">Kembali</button>
+                <button id="btn-download-recipt" class="btn btn-primary">Download Recipt</button>
+            </div>
+        </div>
+    </div>
+    <script src="js/form_steps.js"></script>
 </body>
 
 </html>

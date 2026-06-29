@@ -2,6 +2,19 @@ document.addEventListener("DOMContentLoaded", () => {
   const meja_checkbox = document.querySelectorAll(".meja-check");
   const tombol_lanjut = document.getElementById("btnLanjut");
   const jumlah_terpilih = document.getElementById("jumlah-terpilih");
+  const harga_per_jam = parseInt(
+    document.getElementById("harga_per_jam")?.value || 0,
+  );
+  const label_total = document.getElementById("display-total");
+
+  const updateTotalHarga = () => {
+    if (!label_total) return;
+    const total = [...document.querySelectorAll(".durasi-select")].reduce(
+      (akumulasi, select) => akumulasi + parseInt(select.value) * harga_per_jam,
+      0,
+    );
+    label_total.innerHTML = "Rp " + total.toLocaleString("id-ID");
+  };
 
   meja_checkbox.forEach((checkbox) => {
     checkbox.addEventListener("change", () => {
@@ -23,7 +36,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const label_selesai = elemen_meja.querySelector(".time-end");
 
     const updateWaktuSelesai = () => {
-      const jam_selesai = parseInt(pilihan_jam.value) + parseInt(pilihan_durasi.value);
+      const jam_selesai =
+        parseInt(pilihan_jam.value) + parseInt(pilihan_durasi.value);
       label_selesai.textContent = `${String(jam_selesai).padStart(2, "0")}:00`;
     };
 
@@ -34,7 +48,6 @@ document.addEventListener("DOMContentLoaded", () => {
         const jam_mulai = parseInt(opsi.value);
         const jam_selesai = jam_mulai + durasi;
         const melebihi_operasional = jam_selesai > 22;
-
         const bentrok =
           !melebihi_operasional &&
           jam_yang_diblokir.some(
@@ -51,11 +64,8 @@ document.addEventListener("DOMContentLoaded", () => {
       });
 
       const opsi_terpilih = pilihan_jam[pilihan_jam.selectedIndex];
-
       if (opsi_terpilih?.disabled) {
-        const jam_tersedia = [...pilihan_jam].find(
-          (opsi) => !opsi.disabled,
-        );
+        const jam_tersedia = [...pilihan_jam].find((opsi) => !opsi.disabled);
         if (jam_tersedia) pilihan_jam.value = jam_tersedia.value;
       }
       updateWaktuSelesai();
@@ -66,22 +76,9 @@ document.addEventListener("DOMContentLoaded", () => {
     updateOpsiJam();
   });
 
-  const harga_per_jam = parseInt(
-    document.getElementById("harga_per_jam")?.value || 0,
-  );
-  const label_total = document.getElementById("display-total");
-
-  const updateTotalHarga = () => {
-    const total = [...document.querySelectorAll(".durasi-select")].reduce(
-      (akumulasi, select) => akumulasi + parseInt(select.value) * harga_per_jam,
-      0,
-    );
-    if (label_total)
-      label_total.innerText = "Rp " + total.toLocaleString("id-ID");
-  };
-
   document
     .querySelectorAll(".durasi-select")
     .forEach((select) => select.addEventListener("change", updateTotalHarga));
+
   updateTotalHarga();
 });

@@ -25,11 +25,10 @@ foreach ($list_meja as $index => $meja_id) {
     $jam_mulai = (int) $list_jam[$index];
     $durasi = (int) $list_durasi[$index];
     $jam_selesai = $jam_mulai + $durasi;
-
     $subtotal    = $durasi * $playstation['harga'];
     $total_harga += $subtotal;
-
     $parts = explode('-', $meja_id);
+    
     $detail_booking[] = [
         'nomor' => end($parts),
         'mulai' => str_pad($jam_mulai, 2, '0', STR_PAD_LEFT) . ':00',   
@@ -46,7 +45,6 @@ foreach ($list_meja as $index => $meja_id) {
 
     $semua_jam = range(10, 21); 
     $jam_terpakai = $_SESSION['booking_slots'][$meja_id];
-
     $semua_terisi   = count(array_intersect($semua_jam, $jam_terpakai)) === count($semua_jam);
 
     foreach ($_SESSION['meja_status'] as &$meja) {
@@ -67,7 +65,7 @@ $history_entry = [
     'detail_meja'    => $detail_booking,
 ];
 
-
 array_unshift($_SESSION['booking_history'], $history_entry);
 
+$_SESSION['booking_success'] = true;
 header('Location: history.php');

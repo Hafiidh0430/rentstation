@@ -35,28 +35,25 @@ $jam_operasional = range(10, 21);
             </div>
         </div>
     </header>
-
     <div class="container">
         <div class="content-payment">
             <img src="https://images.unsplash.com/photo-1609354786576-5140d7e578c2?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="payment-image" alt="">
             <form action="confirm.php" method="POST">
                 <div class="form-content">
-
                     <!-- Pengaturan Durasi -->
                     <div class="form-jam-main">
                         <div class="text">
                             <h1>Atur Waktu <?= $ps['nama'] ?></h1>
                             <p>Pilih waktu mulai dan durasi untuk setiap meja yang Anda pilih.</p>
                         </div>
-
-                        <?php foreach ($selected_meja_ids as $m_id):
-                            $parts = explode('-', $m_id);
+                        <?php foreach ($selected_meja_ids as $meja_id):
+                            $parts = explode('-', $meja_id);
                             $no_meja = end($parts);
-                            $jam_blokir = $_SESSION['booking_slots'][$m_id] ?? [];
-                            $jam_blokir_str = implode(',', $jam_blokir); // "11,12" — tanpa JSON
+                            $jam_blokir = $_SESSION['booking_slots'][$meja_id] ?? [];
+                            $jam_blokir_str = implode(',', $jam_blokir);
                         ?>
                             <div class="meja-durasi" data-jam_blokir="<?= $jam_blokir_str ?>">
-                                <input type="hidden" name="meja_ids[]" value="<?= $m_id ?>">
+                                <input type="hidden" name="meja_ids[]" value="<?= $meja_id ?>">
                                 <div class="detail-meja">
                                     <span class="no-meja">Meja. <?= $no_meja ?></span>
                                     <div class="forms">
@@ -152,7 +149,6 @@ $jam_operasional = range(10, 21);
                             </label>
                         </div>
                     </div>
-
                 </div>
                 <div class="buttons">
                     <button type="button" class="btn btn-secondary previous">Sebelumnya</button>
@@ -163,7 +159,56 @@ $jam_operasional = range(10, 21);
             </form>
         </div>
     </div>
-
+    <div class="modal-container">
+        <div class="modal">
+            <div class="header">
+                <h1>Konfirmasi Pesanan</h1>
+                <p>Cek kembali pesananmu, jika sudah sesuai, lanjutkan konfirmasi.</p>
+            </div>
+            <div class="data">
+                <div class="data-diri">
+                    <b>Data Diri:</b>
+                    <div class="nama-telp">
+                        <b class="nama">Zaki</b>
+                        <span class="no-telp">089271837736</span>
+                    </div>
+                </div>
+                <div class="tipe-ps">
+                    <b>Tipe PS:</b>
+                    <span class="nama-ps">PlayStation 5</span>
+                </div>
+                <div class="meja-durasi-modal">
+                    <b>No Meja & Durasi:</b>
+                    <span class="meja">Meja. 05</span>
+                </div>
+            </div>
+            <span class="line"></span>
+            <div class="data">
+                <div class="metode-pembayaran">
+                    <b>Metode Pembayaran:</b>
+                    <span class="metode">CASH (Bayar Ditempat)</span>
+                </div>
+                <div class="total-bayar">
+                    <b>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-circle-alert-icon lucide-circle-alert">
+                            <circle cx="12" cy="12" r="10" />
+                            <line x1="12" x2="12" y1="8" y2="12" />
+                            <line x1="12" x2="12.01" y1="16" y2="16" />
+                        </svg>
+                        Total:</b>
+                    <b class="total">Rp. <?= number_format(10000, 0, '.') ?></b>
+                </div>
+            </div>
+            <div class="img-qris-code" style="display: none;">
+                <img src="assets/fake-qris.png" width="250" height="250" alt="" class="qris">
+                <p>Selesaikan pembayaran dalam waktu <b class="waktu">00:00</b></p>
+            </div>
+            <div class="buttons">
+                <button id="btn-batal" class="btn btn-secondary">Batal</button>
+                <button id="btn-konfirmasi" class="btn btn-primary">Konfirmasi</button>
+            </div>
+        </div>
+    </div>
     <script src="js/script.js"></script>
     <script src="js/form_steps.js"></script>
 </body>

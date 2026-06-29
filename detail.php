@@ -10,7 +10,7 @@ $meja_list = getMejaByPs($id);
 ?>
 <!DOCTYPE html>
 <html lang="id">
-
+     
 <head>
     <meta charset="UTF-8">
     <title>Detail <?= $ps['nama'] ?> - RentaPS</title>

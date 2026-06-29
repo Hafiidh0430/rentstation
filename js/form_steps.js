@@ -8,12 +8,30 @@ document.addEventListener("DOMContentLoaded", () => {
   const nama = document.querySelector('input[name="nama"]');
   const email = document.querySelector('input[name="email"]');
   const phone = document.querySelector('input[name="phone"]');
- let currentStep = 1;
- 
+  const metode = document.querySelectorAll("input[name='metode']");
+  const modal_container = document.querySelector(".modal-container");
+  const modal_buttons = document.querySelector(".modal-container .buttons");
+  const btn_konfirmasi = document.querySelector("#btn-konfirmasi");
+  const btn_batal = document.querySelector("#btn-batal");
+  const qris = document.querySelector(".img-qris-code");
+  const waktu = document.querySelector(".waktu");
+  const btn_kembali = document.querySelector("#btn-konfirmasi-kembali");
+  const modal_konfirmasi_container = document.querySelector(
+    ".modal-konfirmasi-container",
+  );
+
+  let currentStep = 1;
+
+  btn_kembali?.addEventListener("click", () => {
+    modal_konfirmasi_container.classList.remove("active");
+  });
+
+  if (!nextBtn) return;
+
   function isStep2Valid() {
     if (!nama.value.trim()) return false;
     if (!email.value.includes("@") || !email.value.includes(".")) return false;
-    let noHp = phone.value.replace(/\D/g, "");
+    const noHp = phone.value.replace(/\D/g, "");
     if (noHp.length < 10 || noHp.length > 13) return false;
     return true;
   }
@@ -33,13 +51,23 @@ document.addEventListener("DOMContentLoaded", () => {
       nextBtn.style.opacity = "1";
     }
 
-    if (currentStep === 3) {
-      nextBtn.textContent = "Bayar Sekarang";
-      nextBtn.type = "button";
-    } else {
-      nextBtn.textContent = "Selanjutnya";
-      nextBtn.type = "button";
-    }
+    nextBtn.textContent = currentStep === 3 ? "Bayar Sekarang" : "Selanjutnya";
+    nextBtn.type = "button";
+  }
+
+  function countdownQris() {
+    let waktu_bayar = 15 * 60;
+
+    const countdown = setInterval(() => {
+      const menit = Math.floor(waktu_bayar / 60);
+      const detik = waktu_bayar % 60;
+      waktu.textContent = `${String(menit).padStart(2, "0")}:${String(detik).padStart(2, "0")}`;
+      if (waktu_bayar <= 0) {
+        clearInterval(countdown);
+        waktu.textContent = "00:00";
+      }
+      waktu_bayar--;
+    }, 1000);
   }
 
   if (nama && email && phone) {
@@ -48,31 +76,35 @@ document.addEventListener("DOMContentLoaded", () => {
     phone.oninput = () => currentStep === 2 && updateButtons();
   }
 
-  nextBtn.onclick = () => {
-    if (currentStep === 2 && !isStep2Valid()) {
-      alert("Isi data diri dengan benar!");
-      return;
-    }
-
-    if (currentStep === 3) {
-      form.submit();
-      return;
-    }
-
+  nextBtn.addEventListener("click", () => {
+    if (currentStep === 3) modal_container.classList.add("active");
     if (currentStep < 3) currentStep++;
     updateButtons();
-  };
+  });
 
-  prevBtn.onclick = () => {
+  prevBtn.addEventListener("click", () => {
     if (currentStep > 1) currentStep--;
     updateButtons();
-  };
+  });
 
-  form.onsubmit = (e) => {
+  btn_konfirmasi.addEventListener("click", (e) => {
     e.preventDefault();
-    if (currentStep === 3) {
-      nextBtn.onclick();
+    const metode_terpilih = [...metode].find((radio) => radio.checked).value;
+
+    if (metode_terpilih === "QRIS") {
+      modal_buttons.style.display = "none";
+      qris.style.display = "flex";
+      countdownQris();
+      setTimeout(() => form.submit(), 10000);
+    } else {
+      form.submit();
     }
-  };
+  });
+
+  btn_batal.addEventListener("click", (e) => {
+    e.preventDefault();
+    modal_container.classList.remove("active");
+  });
+
   updateButtons();
 });
