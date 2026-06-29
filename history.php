@@ -54,14 +54,16 @@ unset($_SESSION['booking_success']);
                                     <span class='price'>Rp <?= number_format($h['total_bayar'], 0, ',', '.') ?></span>
                                     <div class="status">
                                         <span class='metode-pembayaran'><?= $h['metode'] ?></span>
-                                        <span class='status'>Selesai</span>
+                                        -
+                                        <span class='status'><?= $h['metode'] == 'QRIS' ? 'Selesai' : 'Pending' ?></span>
                                     </div>
                                 </div>
                             </div>
                             <div class="meja-list">
-                                <?php foreach ($h['detail_meja'] as $dm): ?>
+                                <?php foreach ($h['detail_meja'] as $detail): ?>
                                     <span class="meja-item">
-                                        Meja <?= $dm['nomor'] ?> (<?= $dm['durasi'] ?> jam)
+                                        <span class="no-meja"><b>Meja <?= $detail['nomor'] ?></b></span>
+                                        <span class="durasi-meja"><?= $detail['durasi'] ?> jam - <?= $detail['mulai'] ?> s/d <?= $detail['selesai'] ?></span>
                                     </span>
                                 <?php endforeach; ?>
                             </div>

@@ -43,7 +43,7 @@ $jam_operasional = range(10, 21);
                     <!-- Pengaturan Durasi -->
                     <div class="form-jam-main">
                         <div class="text">
-                            <h1>Atur Waktu <?= $ps['nama'] ?></h1>
+                            <h1>Atur Waktu <span class="ps-type"><?= $ps['nama'] ?></span></h1>
                             <p>Pilih waktu mulai dan durasi untuk setiap meja yang Anda pilih.</p>
                         </div>
                         <?php foreach ($selected_meja_ids as $meja_id):
@@ -179,7 +179,12 @@ $jam_operasional = range(10, 21);
                 </div>
                 <div class="meja-durasi-modal">
                     <b>No Meja & Durasi:</b>
-                    <span class="meja">Meja. 05</span>
+                    <div class="meja-durasi-list">
+                        <div class="meja-durasi-detail">
+                            <span class="meja"><b>Meja. 05</b></span>
+                            <span class="durasi">2 Jam - 12:00 s/d 14:00</span>
+                        </div>
+                    </div>
                 </div>
             </div>
             <span class="line"></span>
